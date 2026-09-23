@@ -40,7 +40,7 @@ public class JumpPass extends Element{
     }
 
     // Setting for Bonus Field
-    public boolean getBonus(){
+    public boolean isBonus(){
         return this.bonus;
     }
 

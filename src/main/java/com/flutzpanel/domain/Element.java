@@ -20,7 +20,7 @@ public abstract class Element {
 
     // Getter Method for GOE
     public BigDecimal getGoe() {
-        return goe;
+        return this.goe;
     }
 
     // Abstract Getter Method for Element Name (Implementation in Sub-Class)

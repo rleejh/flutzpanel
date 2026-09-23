@@ -39,6 +39,10 @@ public class Jump{
 
     // Setter Method for Rotations
     public void setRotations(int rotations) {
+        if (rotations < 0 || rotations > 5) {
+            throw new IllegalArgumentException ("Jumps Rotations should be between 0 and 5.");
+        }
+
         this.rotations = rotations;
     }
 

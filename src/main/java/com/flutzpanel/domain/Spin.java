@@ -2,7 +2,7 @@ package com.flutzpanel.domain;
 
 public class Spin extends Element{
 
-    private SpinLevel level;
+    private ElementLevel level;
     private SpinType type;
     private boolean flying;
     private boolean changeFoot;
@@ -10,7 +10,8 @@ public class Spin extends Element{
     private boolean choreoSpin;
 
     public Spin() {
-        this.level = SpinLevel.BASIC;
+        super();
+        this.level = ElementLevel.BASIC;
         this.flying = false;
         this.changeFoot = false;
         this.vStatus = false;
@@ -31,7 +32,7 @@ public class Spin extends Element{
     }
 
     // Getter Method for Spin Level
-    public SpinLevel getSpinLevel() {
+    public ElementLevel getLevel() {
         return this.level;
     }
 
@@ -62,7 +63,7 @@ public class Spin extends Element{
 
 
     // Setter Method for Spin Level
-    public void setSpinLevel(SpinLevel level) {
+    public void setLevel(ElementLevel level) {
         this.level = level;
     }
 

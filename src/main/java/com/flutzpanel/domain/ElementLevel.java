@@ -1,6 +1,6 @@
 package com.flutzpanel.domain;
 
-public enum SpinLevel {
+public enum ElementLevel {
     BASIC,
     ONE,
     TWO,

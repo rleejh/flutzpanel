@@ -55,5 +55,15 @@ public class JumpPassTest {
         assertTrue(jumpPass.isValid());
     }
 
+    @Test
+    void nullJumpIsRejected() {
+        JumpPass jumpPass = new JumpPass();
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> jumpPass.addJump(null)
+        );
+    }
+
 
 }

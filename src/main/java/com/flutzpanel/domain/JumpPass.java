@@ -12,6 +12,9 @@ public class JumpPass extends Element{
     }
 
     public void addJump(Jump jump){
+        if (jump == null) {
+            throw new IllegalArgumentException("Jump cannot be null");
+        }
         this.jumps.add(jump);
     }
 

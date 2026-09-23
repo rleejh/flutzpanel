@@ -7,7 +7,7 @@ public class Spin extends Element{
     private boolean flying;
     private boolean changeFoot;
     private boolean vStatus;
-    private boolean choreoSpin;
+
 
     public Spin() {
         super();
@@ -15,7 +15,32 @@ public class Spin extends Element{
         this.flying = false;
         this.changeFoot = false;
         this.vStatus = false;
-        this.choreoSpin = false;
+    }
+
+    public boolean isValid() {
+        if (this.type == null) {
+            return false;
+        }
+
+        if (this.type == SpinType.CHOREOGRAPHIC) {
+            if (this.level != ElementLevel.ONE) {
+                return false;
+            }
+
+            if (this.flying) {
+                return false;
+            }
+
+            if (this.changeFoot) {
+                return false;
+            }
+
+            if (this.vStatus) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 
@@ -56,22 +81,25 @@ public class Spin extends Element{
         return this.vStatus;
     }
 
-    // Getter Method for Choreographic Spin Status
-    public boolean isChoreoSpin() {
-        return this.choreoSpin;
-    }
 
 
     // Setter Method for Spin Level
     public void setLevel(ElementLevel level) {
+        if (level == null) {
+            throw new IllegalArgumentException("Spin level cannot be null.");
+        }
+
         this.level = level;
     }
 
     // Setter Method for Spin Type
     public void setSpinType(SpinType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("Spin type cannot be null.");
+        }
+
         this.type = type;
     }
-
     // Setter Method for Flying Status
     public void setFlying(boolean flying) {
         this.flying = flying;
@@ -87,9 +115,6 @@ public class Spin extends Element{
         this.vStatus = vStatus;
     }
 
-    // Setter Method for Choreographic Spin Status
-    public void setChoreoSpin(boolean choreoSpin) {
-        this.choreoSpin = choreoSpin;
-    }
+
 
 }

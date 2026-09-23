@@ -29,6 +29,11 @@ public class JumpPass extends Element{
     }
 
 
+    public boolean isValid() {
+        return !this.jumps.isEmpty();
+    }
+
+
     // Getter for List of Jumps
     public List<Jump> getJumps(){
         return this.jumps;

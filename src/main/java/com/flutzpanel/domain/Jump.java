@@ -40,7 +40,7 @@ public class Jump{
     // Setter Method for Rotations
     public void setRotations(int rotations) {
         if (rotations < 0 || rotations > 5) {
-            throw new IllegalArgumentException ("Jumps Rotations should be between 0 and 5.");
+            throw new IllegalArgumentException ("Jumps rotations should be between 0 and 5.");
         }
 
         this.rotations = rotations;
@@ -48,6 +48,9 @@ public class Jump{
 
     // Setter Method for Jump Type
     public void setJumpType(JumpType type) {
+        if (type == null) {
+            throw new IllegalArgumentException ("Jumps type cannot be null.");
+        }
         this.type = type;
     }
 
@@ -56,7 +59,7 @@ public class Jump{
         this.jumpRotation = jumpRotation;
     }
 
-    // Getter Method for Jump Edge Status
+    // Setter Method for Jump Edge Status
     public void setJumpEdge(JumpEdge jumpEdge) {
         this.jumpEdge = jumpEdge;
     }

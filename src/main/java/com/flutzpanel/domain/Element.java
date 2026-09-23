@@ -15,6 +15,14 @@ public abstract class Element {
 
     // Setting Method for GOE
     public void setGoe(BigDecimal goe) {
+        if (goe == null) {
+            throw new IllegalArgumentException("GOE cannot be null");
+        }
+
+        if (goe.compareTo(new BigDecimal("5")) > 0 || goe.compareTo(new BigDecimal("-5")) < 0 ) {
+            throw new IllegalArgumentException("GOE Value must be between -5 and 5");
+        }
+
         this.goe = goe;
     }
 

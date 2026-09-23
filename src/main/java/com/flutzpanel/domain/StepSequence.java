@@ -11,6 +11,19 @@ public class StepSequence extends Element{
         this.choreoStep = false;
     }
 
+    public boolean isValid() {
+        if (this.level == null) {
+            return false;
+        }
+
+        if (this.choreoStep && this.level != ElementLevel.ONE) {
+            return false;
+        }
+
+        return true;
+
+    }
+
 
 
     //

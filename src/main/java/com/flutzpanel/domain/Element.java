@@ -10,7 +10,7 @@ public abstract class Element {
         this.goe = BigDecimal.ZERO;
     }
 
-    // Calculate Score // Implemntation To Be Done Later
+    // Calculate Score // Implementation To Be Done Later
     //public BigDecimal calculateElementScore() {}
 
     // Setting Method for GOE

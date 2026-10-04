@@ -6,7 +6,7 @@ public class ScaleOfValues {
     private List<ScoringElement> jumps;
     private List<ScoringElement> spins;
     private List<ScoringElement> stepSequences;
-    private List<ScoringElement> choreographicSequences;
+    private List<ScoringElement> choreographicElements;
 
     public List<ScoringElement> getJumps() {
         return jumps;
@@ -32,11 +32,11 @@ public class ScaleOfValues {
         this.stepSequences = stepSequences;
     }
 
-    public List<ScoringElement> getChoreographicSequences() {
-        return choreographicSequences;
+    public List<ScoringElement> getChoreographicElements() {
+        return choreographicElements;
     }
 
-    public void setChoreographicSequences(List<ScoringElement> choreographicSequences) {
-        this.choreographicSequences = choreographicSequences;
+    public void setChoreographicElements(List<ScoringElement> choreographicElements) {
+        this.choreographicElements = choreographicElements;
     }
 }

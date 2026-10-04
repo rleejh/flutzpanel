@@ -2,21 +2,15 @@ package com.flutzpanel.domain;
 
 public class StepSequence extends Element{
     private ElementLevel level;
-    private boolean choreoStep;
 
 
     public StepSequence() {
         super();
         this.level = ElementLevel.BASIC;
-        this.choreoStep = false;
     }
 
     public boolean isValid() {
         if (this.level == null) {
-            return false;
-        }
-
-        if (this.choreoStep && this.level != ElementLevel.ONE) {
             return false;
         }
 
@@ -25,14 +19,11 @@ public class StepSequence extends Element{
     }
 
 
-
-    //
     @Override
     public String getName() {
         return "";
     }
 
-    //
     @Override
     public String getCode(){
         return "";
@@ -43,19 +34,15 @@ public class StepSequence extends Element{
         return this.level;
     }
 
-    // Getter Method for Choreographic Step Status
-    public boolean isChoreoStep() {
-        return this.choreoStep;
-    }
-
 
     // Setter Method for Element Level
     public void setLevel(ElementLevel level) {
+        if (level == null) {
+            throw new IllegalArgumentException("Step sequence level cannot be null.");
+        }
+
+
         this.level = level;
     }
 
-    // Setter Method for Choreographic Step Status
-    public void setChoreoStep(boolean choreoStep) {
-        this.choreoStep = choreoStep;
-    }
 }

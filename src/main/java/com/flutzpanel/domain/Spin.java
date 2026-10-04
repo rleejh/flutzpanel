@@ -22,24 +22,6 @@ public class Spin extends Element{
             return false;
         }
 
-        if (this.type == SpinType.CHOREOGRAPHIC) {
-            if (this.level != ElementLevel.ONE) {
-                return false;
-            }
-
-            if (this.flying) {
-                return false;
-            }
-
-            if (this.changeFoot) {
-                return false;
-            }
-
-            if (this.vStatus) {
-                return false;
-            }
-        }
-
         return true;
     }
 

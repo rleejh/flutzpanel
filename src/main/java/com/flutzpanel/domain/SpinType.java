@@ -5,6 +5,5 @@ public enum SpinType {
     SIT,
     CAMEL,
     LAYBACK,
-    COMBINATION,
-    CHOREOGRAPHIC
+    COMBINATION
 }

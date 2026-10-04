@@ -64,4 +64,52 @@ public class Jump{
         this.jumpEdge = jumpEdge;
     }
 
+    // Returns the code identifier for the Jump element
+    public String getCode() {
+        if (this.type == null) {
+            throw new IllegalStateException("Jump type must be selected.");
+        }
+
+        String jumpTypeCode = getJumpTypeCode();
+        String jumpRotationCode = getJumpRotationCode();
+        String jumpEdgeCode = getJumpEdgeCode();
+
+        return this.rotations + jumpTypeCode + jumpRotationCode + jumpEdgeCode;
+    }
+
+    // Helper function that returns code for jump type
+    private String getJumpTypeCode() {
+        return switch (this.type) {
+            case EULER -> "Eu";
+            case TOE -> "T";
+            case SALCHOW -> "S";
+            case LOOP -> "Lo";
+            case FLIP -> "F";
+            case LUTZ -> "Lz";
+            case AXEL -> "A";
+        };
+    }
+
+    // Helper function that returns code for jump rotation
+    private String getJumpRotationCode() {
+        return switch (this.jumpRotation) {
+            case CLEAN -> "";
+            case QUARTER -> "q";
+            case UNDERROTATED -> "<";
+            case DOWNGRADED -> "<<";
+        };
+    }
+
+
+    // Helper function that returns code for jump edge
+    private String getJumpEdgeCode() {
+        return switch (this.jumpEdge) {
+            case CORRECT -> "";
+            case UNCLEAR -> "!";
+            case WRONG -> "e";
+        };
+    }
+
+
+
 }

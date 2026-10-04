@@ -3,7 +3,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 
-public class ScoringEntry {
+public class ScoringElement {
     private String id;
     private BigDecimal baseValue;
     private Map<Integer, BigDecimal> goe;

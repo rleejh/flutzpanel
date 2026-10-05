@@ -51,5 +51,51 @@ public class SpinTest {
         assertFalse(spin.isVStatus());
     }
 
+    @Test
+    void combinationSpinReturnsCorrectCode() {
+        Spin spin = new Spin();
+        spin.setSpinType(SpinType.COMBINATION);
+        spin.setLevel(ElementLevel.FOUR);
+        spin.setChangeFoot(true);
+
+        assertEquals("CCoSp4", spin.getCode());
+    }
+
+    @Test
+    void flyingSpinReturnsCorrectCode() {
+        Spin spin = new Spin();
+        spin.setSpinType(SpinType.CAMEL);
+        spin.setLevel(ElementLevel.FOUR);
+        spin.setFlying(true);
+
+        assertEquals("FCSp4", spin.getCode());
+    }
+
+    @Test
+    void flyingChangeFootSpinReturnsCorrectCode() {
+        Spin spin = new Spin();
+        spin.setSpinType(SpinType.COMBINATION);
+        spin.setLevel(ElementLevel.FOUR);
+        spin.setFlying(true);
+        spin.setChangeFoot(true);
+
+        assertEquals("FCCoSp4", spin.getCode());
+    }
+
+    @Test
+    void vStatusIsIncludedInCode() {
+        Spin spin = new Spin();
+        spin.setSpinType(SpinType.SIT);
+        spin.setLevel(ElementLevel.FOUR);
+        spin.setVStatus(true);
+
+        assertEquals("SSp4V", spin.getCode());
+    }
+
+    @Test
+    void spinWithoutTypeCannotReturnCode() {
+        Spin spin = new Spin();
+        assertThrows(IllegalStateException.class, spin::getCode);
+    }
 
 }

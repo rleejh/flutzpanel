@@ -30,16 +30,21 @@ public class ChoreographicElement extends Element {
     }
 
 
-    //
+
     @Override
     public String getName() {
         return "";
     }
 
-    //
+
     @Override
     public String getCode(){
-        return "";
+
+        if (this.type == null) {
+            throw new IllegalStateException("Choreographic element type must be selected.");
+        }
+
+        return "ChSq1";
     }
 
 

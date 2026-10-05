@@ -33,4 +33,36 @@ public class ChoreographicElementTest {
                 () -> element.setChoreoType(null)
         );
     }
+
+    @Test
+    void choreographicSequenceReturnsCorrectCode() {
+        ChoreographicElement element = new ChoreographicElement();
+
+        element.setChoreoType(
+                ChoreographicElementType.CHOREOGRAPHIC_SEQUENCE
+        );
+
+        assertEquals("ChSq1", element.getCode());
+    }
+
+    @Test
+    void choreographicSpinReturnsCorrectCode() {
+        ChoreographicElement element = new ChoreographicElement();
+
+        element.setChoreoType(
+                ChoreographicElementType.CHOREOGRAPHIC_SPIN
+        );
+
+        assertEquals("ChSq1", element.getCode());
+    }
+
+    @Test
+    void choreographicElementWithoutTypeCannotReturnCode() {
+        ChoreographicElement element = new ChoreographicElement();
+
+        assertThrows(
+                IllegalStateException.class,
+                element::getCode
+        );
+    }
 }

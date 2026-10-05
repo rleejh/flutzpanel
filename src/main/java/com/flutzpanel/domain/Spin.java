@@ -35,8 +35,54 @@ public class Spin extends Element{
     //
     @Override
     public String getCode(){
-        return "";
+        if (this.type == null) {
+            throw new IllegalStateException("Spin type must be selected.");
+        }
+
+        String spinTypeCode = getSpinTypeCode();
+        String spinLevelCode = getSpinLevelCode();
+        String spinFlyingCode = "";
+        String spinChangeFootCode = "";
+        String spinVStatusCode = "";
+
+        if (this.isFlying() == true) {
+            spinFlyingCode = "F";
+        }
+
+        if (this.isChangeFoot() == true) {
+            spinChangeFootCode = "C";
+        }
+
+        if (this.isVStatus() == true) {
+            spinVStatusCode = "V";
+        }
+
+
+        return spinFlyingCode + spinChangeFootCode + spinTypeCode + "Sp" + spinLevelCode + spinVStatusCode;
     }
+
+    // Helper function that returns code for spin type
+    private String getSpinTypeCode() {
+        return switch (this.type) {
+            case UPRIGHT -> "U";
+            case SIT -> "S";
+            case CAMEL -> "C";
+            case LAYBACK -> "L";
+            case COMBINATION -> "Co";
+        };
+    }
+
+    // Helper function that returns code for spin level
+    private String getSpinLevelCode() {
+        return switch (this.level) {
+            case BASIC -> "B";
+            case ONE -> "1";
+            case TWO -> "2";
+            case THREE -> "3";
+            case FOUR -> "4";
+        };
+    }
+
 
     // Getter Method for Spin Level
     public ElementLevel getLevel() {

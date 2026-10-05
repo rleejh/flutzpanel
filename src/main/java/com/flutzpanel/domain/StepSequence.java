@@ -26,7 +26,18 @@ public class StepSequence extends Element{
 
     @Override
     public String getCode(){
-        return "";
+        return "StSq" + getStepLevelCode();
+    }
+
+    // Helper function that returns code for Step Sequence level
+    private String getStepLevelCode() {
+        return switch (this.level) {
+            case BASIC -> "B";
+            case ONE -> "1";
+            case TWO -> "2";
+            case THREE -> "3";
+            case FOUR -> "4";
+        };
     }
 
     // Getter Method for Element Level

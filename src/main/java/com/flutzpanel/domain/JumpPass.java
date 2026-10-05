@@ -1,6 +1,8 @@
 package com.flutzpanel.domain;
-import java.util.List;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.StringJoiner;
 
 public class JumpPass extends Element{
     private List<Jump> jumps = new ArrayList<>();
@@ -28,7 +30,17 @@ public class JumpPass extends Element{
     //
     @Override
     public String getCode(){
-        return "";
+        if (this.jumps.isEmpty()) {
+            throw new IllegalStateException("No Jumps found");
+        }
+
+        StringJoiner joiner = new StringJoiner("+");
+
+        for (Jump jump : this.jumps) {
+            joiner.add(jump.getCode());
+        }
+
+        return joiner.toString();
     }
 
 

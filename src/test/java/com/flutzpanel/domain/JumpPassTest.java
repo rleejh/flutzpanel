@@ -65,5 +65,45 @@ public class JumpPassTest {
         );
     }
 
+    @Test
+    void jumpPassWithOneJumpReturnsJumpCode() {
+        Jump jump = new Jump();
+        jump.setRotations(3);
+        jump.setJumpType(JumpType.LUTZ);
+
+        JumpPass pass = new JumpPass();
+        pass.addJump(jump);
+
+        assertEquals("3Lz", pass.getCode());
+    }
+
+    @Test
+    void jumpPassWithMultipleJumpsJoinsCodesWithPlus() {
+        Jump first = new Jump();
+        first.setRotations(3);
+        first.setJumpType(JumpType.LUTZ);
+
+        Jump second = new Jump();
+        second.setRotations(2);
+        second.setJumpType(JumpType.TOE);
+
+        JumpPass pass = new JumpPass();
+        pass.addJump(first);
+        pass.addJump(second);
+
+        assertEquals("3Lz+2T", pass.getCode());
+    }
+
+    @Test
+    void emptyJumpPassCannotReturnCode() {
+        JumpPass pass = new JumpPass();
+
+        assertThrows(
+                IllegalStateException.class,
+                pass::getCode
+        );
+    }
+
+
 
 }

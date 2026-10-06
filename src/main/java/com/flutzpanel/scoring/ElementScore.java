@@ -8,6 +8,13 @@ public class ElementScore {
     private BigDecimal goeContribution;
     private BigDecimal total;
 
+    // Constructor Requiring All 3 Fields
+    public ElementScore(BigDecimal baseValue, BigDecimal goeContribution, BigDecimal total) {
+        this.baseValue = baseValue;
+        this.goeContribution = goeContribution;
+        this.total = total;
+    }
+
     public BigDecimal getBaseValue() {
         return baseValue;
     }

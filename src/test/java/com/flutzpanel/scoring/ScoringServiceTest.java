@@ -1,12 +1,11 @@
 package com.flutzpanel.scoring;
 
-import com.flutzpanel.domain.Jump;
-import com.flutzpanel.domain.JumpPass;
-import com.flutzpanel.domain.JumpType;
+import com.flutzpanel.domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -19,7 +18,10 @@ public class ScoringServiceTest {
     @BeforeEach
     void setUp() throws Exception {
         ScaleOfValues scaleOfValues = new ScaleOfValuesLoader().load();
-        scoringService = new ScoringService(scaleOfValues);
+        List<ProgramComponentFactor> programComponentFactors =
+                new ProgramComponentFactorLoader().load();
+
+        scoringService = new ScoringService(scaleOfValues, programComponentFactors);
     }
 
     @Test
@@ -173,4 +175,152 @@ public class ScoringServiceTest {
                 () -> scoringService.scoreElement(jumpPass)
         );
     }
+
+    @Test
+    void findsMensShortProgramComponentFactor() {
+        Program program = new Program();
+        program.setSeason("2026-27");
+        program.setDiscipline(Discipline.MEN);
+        program.setProgramType(ProgramType.SHORT_PROGRAM);
+
+        BigDecimal factor = scoringService.findComponentFactor(program);
+
+        assertEquals(0, factor.compareTo(new BigDecimal("1.67")));
+    }
+
+    @Test
+    void calculatesComponentScore() {
+        Program program = new Program();
+        program.setSeason("2026-27");
+        program.setDiscipline(Discipline.MEN);
+        program.setProgramType(ProgramType.SHORT_PROGRAM);
+
+        ProgramComponent composition = new ProgramComponent();
+        composition.setType(ProgramComponentType.COMPOSITION);
+        composition.setScore(new BigDecimal("8.50"));
+
+        ProgramComponent presentation = new ProgramComponent();
+        presentation.setType(ProgramComponentType.PRESENTATION);
+        presentation.setScore(new BigDecimal("8.75"));
+
+        ProgramComponent skatingSkills = new ProgramComponent();
+        skatingSkills.setType(ProgramComponentType.SKATING_SKILLS);
+        skatingSkills.setScore(new BigDecimal("9.00"));
+
+        program.addProgramComponent(composition);
+        program.addProgramComponent(presentation);
+        program.addProgramComponent(skatingSkills);
+
+        BigDecimal componentScore = scoringService.calculateComponentScore(program);
+
+        assertEquals(0, componentScore.compareTo(new BigDecimal("43.84")));
+    }
+
+    @Test
+    void roundsEachComponentScoreBeforeAdding() {
+        Program program = new Program();
+        program.setSeason("2026-27");
+        program.setDiscipline(Discipline.MEN);
+        program.setProgramType(ProgramType.SHORT_PROGRAM);
+
+        ProgramComponent composition = new ProgramComponent();
+        composition.setType(ProgramComponentType.COMPOSITION);
+        composition.setScore(new BigDecimal("8.53"));
+
+        ProgramComponent presentation = new ProgramComponent();
+        presentation.setType(ProgramComponentType.PRESENTATION);
+        presentation.setScore(new BigDecimal("8.53"));
+
+        ProgramComponent skatingSkills = new ProgramComponent();
+        skatingSkills.setType(ProgramComponentType.SKATING_SKILLS);
+        skatingSkills.setScore(new BigDecimal("8.53"));
+
+        program.addProgramComponent(composition);
+        program.addProgramComponent(presentation);
+        program.addProgramComponent(skatingSkills);
+
+        BigDecimal componentScore = scoringService.calculateComponentScore(program);
+
+        assertEquals(0, componentScore.compareTo(new BigDecimal("42.75")));;
+    }
+
+
+    @Test
+    void calculatesDeductionsTotal() {
+        Program program = new Program();
+
+        Deduction fall = new Deduction();
+        fall.setType(DeductionType.FALL);
+        fall.setValue(1);
+
+        Deduction timeViolation = new Deduction();
+        timeViolation.setType(DeductionType.TIME_VIOLATION);
+        timeViolation.setValue(2);
+
+        program.addDeduction(fall);
+        program.addDeduction(timeViolation);
+
+        BigDecimal deductionsTotal = scoringService.calculateDeductionsTotal(program);
+
+        assertEquals(0, deductionsTotal.compareTo(new BigDecimal("3")));
+    }
+
+    @Test
+    void calculatesTotalProgramScore() {
+        Program program = new Program();
+        program.setSeason("2026-27");
+        program.setDiscipline(Discipline.MEN);
+        program.setProgramType(ProgramType.SHORT_PROGRAM);
+
+        // 2A = 3.30 base value, GOE 0
+        Jump jump = new Jump();
+        jump.setRotations(2);
+        jump.setJumpType(JumpType.AXEL);
+
+        JumpPass jumpPass = new JumpPass();
+        jumpPass.addJump(jump);
+
+        program.addElement(jumpPass);
+
+        // PCS = 8.50 + 8.75 + 9.00 = 26.25
+        // 26.25 × 1.67 = 43.8375
+        // Each component is factored and rounded:
+        // 14.20 + 14.61 + 15.03 = 43.84
+        ProgramComponent composition = new ProgramComponent();
+        composition.setType(ProgramComponentType.COMPOSITION);
+        composition.setScore(new BigDecimal("8.50"));
+
+        ProgramComponent presentation = new ProgramComponent();
+        presentation.setType(ProgramComponentType.PRESENTATION);
+        presentation.setScore(new BigDecimal("8.75"));
+
+        ProgramComponent skatingSkills = new ProgramComponent();
+        skatingSkills.setType(ProgramComponentType.SKATING_SKILLS);
+        skatingSkills.setScore(new BigDecimal("9.00"));
+
+        program.addProgramComponent(composition);
+        program.addProgramComponent(presentation);
+        program.addProgramComponent(skatingSkills);
+
+        Deduction deduction = new Deduction();
+        deduction.setType(DeductionType.FALL);
+        deduction.setValue(1);
+
+        program.addDeduction(deduction);
+
+        ProgramScore programScore = scoringService.calculateTotalProgramScore(program);
+
+        assertEquals(0, programScore.getTechnicalScore()
+                .compareTo(new BigDecimal("3.30")));
+
+        assertEquals(0, programScore.getComponentScore()
+                .compareTo(new BigDecimal("43.84")));
+
+        assertEquals(0, programScore.getDeductionsTotal()
+                .compareTo(new BigDecimal("1")));
+
+        assertEquals(0, programScore.getTotalProgramScore()
+                .compareTo(new BigDecimal("46.14")));
+    }
+
 }

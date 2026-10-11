@@ -29,4 +29,34 @@ public class ProgramService {
     public Program createProgram(Program program) {
         return programRepository.save(program);
     }
+
+    public Program updateProgram(Long id, Program updatedProgram) {
+        Program existingProgram = getProgram(id);
+
+        existingProgram.setSeason(updatedProgram.getSeason());
+        existingProgram.setProgramType(updatedProgram.getProgramType());
+        existingProgram.setDiscipline(updatedProgram.getDiscipline());
+
+        existingProgram.getElements().clear();
+        existingProgram.getElements().addAll(updatedProgram.getElements());
+
+        existingProgram.getProgramComponents().clear();
+        existingProgram.getProgramComponents()
+                .addAll(updatedProgram.getProgramComponents());
+
+        existingProgram.getDeductions().clear();
+        existingProgram.getDeductions()
+                .addAll(updatedProgram.getDeductions());
+
+        return programRepository.save(existingProgram);
+    }
+
+
+    public void deleteProgram(Long id) {
+        Program program = getProgram(id);
+        programRepository.delete(program);
+    }
+
+
+
 }

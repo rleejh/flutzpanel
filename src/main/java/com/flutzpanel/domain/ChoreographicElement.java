@@ -1,5 +1,8 @@
 package com.flutzpanel.domain;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class ChoreographicElement extends Element {
     private ChoreographicElementType type;
 

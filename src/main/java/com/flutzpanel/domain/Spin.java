@@ -1,5 +1,8 @@
 package com.flutzpanel.domain;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Spin extends Element{
 
     private ElementLevel level;
@@ -7,6 +10,7 @@ public class Spin extends Element{
     private boolean flying;
     private boolean changeFoot;
     private boolean vStatus;
+
 
 
     public Spin() {

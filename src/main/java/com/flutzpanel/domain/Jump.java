@@ -1,10 +1,21 @@
 package com.flutzpanel.domain;
 
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+
+@Embeddable
 public class Jump{
 
     private int rotations;
+
+    @Enumerated(EnumType.STRING)
     private JumpType type;
+
+    @Enumerated(EnumType.STRING)
     private JumpRotation jumpRotation;
+
+    @Enumerated(EnumType.STRING)
     private JumpEdge jumpEdge;
 
     public Jump() {

@@ -1,8 +1,15 @@
 package com.flutzpanel.domain;
 
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+
+@Embeddable
 public class Deduction {
 
+    @Enumerated(EnumType.STRING)
     private DeductionType type;
+
     private int value;
 
     public Deduction() {

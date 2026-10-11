@@ -1,17 +1,41 @@
 package com.flutzpanel.domain;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Program {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String season;
+
+    @Enumerated(EnumType.STRING)
     private ProgramType programType;
+
+    @Enumerated(EnumType.STRING)
     private Discipline discipline;
 
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "program_id")
+    @OrderColumn(name = "element_order")
     private List<Element> elements = new ArrayList<Element>();
+
+    @ElementCollection
+    @CollectionTable(name = "program_components", joinColumns = @JoinColumn(name = "program_id"))
+    @OrderColumn(name = "component_order")
     private List<ProgramComponent> programComponents = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(name = "program_deductions", joinColumns = @JoinColumn(name = "program_id"))
+    @OrderColumn(name = "deduction_order")
     private List<Deduction> deductions = new ArrayList<>();
+
 
 
 

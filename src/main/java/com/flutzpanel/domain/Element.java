@@ -1,17 +1,23 @@
 package com.flutzpanel.domain;
+
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Element {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private BigDecimal goe;
 
     // Constructor
     protected Element() {
         this.goe = BigDecimal.ZERO;
     }
-
-    // Calculate Score // Implementation To Be Done Later
-    //public BigDecimal calculateElementScore() {}
 
     // Setting Method for GOE
     public void setGoe(BigDecimal goe) {
@@ -36,6 +42,11 @@ public abstract class Element {
 
     // Abstract Getter Method for Element Code (Implementation in Sub-Class)
     public abstract String getCode();
+
+
+    public Long getId() {
+        return this.id;
+    }
 
 
 }

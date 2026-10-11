@@ -1,9 +1,23 @@
 package com.flutzpanel.domain;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "elementType"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Spin.class, name = "SPIN"),
+        @JsonSubTypes.Type(value = JumpPass.class, name = "JUMP_PASS"),
+        @JsonSubTypes.Type(value = StepSequence.class, name = "STEP_SEQUENCE"),
+        @JsonSubTypes.Type(value = ChoreographicElement.class, name = "CHOREOGRAPHIC")
+})
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

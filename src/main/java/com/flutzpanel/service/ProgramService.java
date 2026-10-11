@@ -1,24 +1,32 @@
 package com.flutzpanel.service;
 
-import com.flutzpanel.domain.Discipline;
 import com.flutzpanel.domain.Program;
-import com.flutzpanel.domain.ProgramType;
+import com.flutzpanel.persistence.ProgramRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class ProgramService {
 
-    public Program getProgram(Long id) {        // Stub
-        Program program = new Program();
-        program.setId(id);
-        program.setSeason("2026-27");
-        program.setDiscipline(Discipline.MEN);
-        program.setProgramType(ProgramType.SHORT_PROGRAM);
+    private final ProgramRepository programRepository;
 
-        return program;
+    public ProgramService(ProgramRepository programRepository) {
+        this.programRepository = programRepository;
     }
 
-    public Program createProgram(Program program) {     // Stub
-        return program;
+
+    public Program getProgram(Long id) {
+        return programRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Program not found with id: " + id
+                        ));
+    }
+
+
+    public Program createProgram(Program program) {
+        return programRepository.save(program);
     }
 }

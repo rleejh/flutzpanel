@@ -41,7 +41,7 @@ public class JumpPass extends Element{
     @Override
     public String getCode(){
         if (this.jumps.isEmpty()) {
-            throw new IllegalStateException("No Jumps found");
+            return "";
         }
 
         StringJoiner joiner = new StringJoiner("+");

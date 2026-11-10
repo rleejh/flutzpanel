@@ -1,0 +1,38 @@
+[
+  {
+    "season": "2026-27",
+    "discipline": "MEN",
+    "programType": "SHORT_PROGRAM",
+    "factor": 1.67
+  },
+  {
+    "season": "2026-27",
+    "discipline": "MEN",
+    "programType": "FREE_SKATE",
+    "factor": 3.33
+  },
+  {
+    "season": "2026-27",
+    "discipline": "WOMEN",
+    "programType": "SHORT_PROGRAM",
+    "factor": 1.33
+  },
+  {
+    "season": "2026-27",
+    "discipline": "WOMEN",
+    "programType": "FREE_SKATE",
+    "factor": 2.67
+  },
+  {
+    "season": "2026-27",
+    "discipline": "PAIRS",
+    "programType": "SHORT_PROGRAM",
+    "factor": 1.33
+  },
+  {
+    "season": "2026-27",
+    "discipline": "PAIRS",
+    "programType": "FREE_SKATE",
+    "factor": 2.67
+  }
+]
